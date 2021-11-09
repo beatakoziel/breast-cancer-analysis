@@ -46,7 +46,7 @@ def generate_iqr_ranges_report(data, file_name):
 def generate_quantiles_report(data, file_name, range):
     with open(file_name, "w", newline="") as file:
         writer = csv.writer(file, delimiter=",")
-        writer.writerow(["column_name", "quantile_range_" + range])
+        writer.writerow(["column_name", "quantile_range_" + str(range)])
         for col in data.columns:
             writer.writerow([col, numpy.quantile(data[col], range).round(3)])
 

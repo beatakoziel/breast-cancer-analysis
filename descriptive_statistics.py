@@ -24,7 +24,7 @@ def generate_standard_report(data, file_name):
         writer = csv.writer(file, delimiter=",")
         writer.writerow(["column_name", "standard_deviation"])
         for col in data.columns:
-            writer.writerow([col, data[col].std()])
+            writer.writerow([col, data[col].std().round(3)])
 
 
 def generate_medians_report(data, file_name):

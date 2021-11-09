@@ -30,7 +30,7 @@ def generate_standard_report(data, file_name):
 def generate_medians_report(data, file_name):
     with open(file_name, "w", newline="") as file:
         writer = csv.writer(file, delimiter=",")
-        writer.writerow(["column_name", "standard_deviation"])
+        writer.writerow(["column_name", "median"])
         for col in data.columns:
             writer.writerow([col, data[col].median().round(3)])
 
@@ -38,7 +38,7 @@ def generate_medians_report(data, file_name):
 def generate_iqr_ranges_report(data, file_name):
     with open(file_name, "w", newline="") as file:
         writer = csv.writer(file, delimiter=",")
-        writer.writerow(["column_name", "standard_deviation"])
+        writer.writerow(["column_name", "iqr_range"])
         for col in data.columns:
             writer.writerow([col, calculate_iqr_ranges(data, col).round(3)])
 
@@ -46,7 +46,7 @@ def generate_iqr_ranges_report(data, file_name):
 def generate_quantiles_report(data, file_name, range):
     with open(file_name, "w", newline="") as file:
         writer = csv.writer(file, delimiter=",")
-        writer.writerow(["column_name", "standard_deviation"])
+        writer.writerow(["column_name", "quantile_range_" + range])
         for col in data.columns:
             writer.writerow([col, numpy.quantile(data[col], range).round(3)])
 

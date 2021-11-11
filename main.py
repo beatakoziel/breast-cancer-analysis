@@ -20,3 +20,8 @@ descriptive_statistics.generate_iqr_ranges_report(statistics_data, "iqr_ranges.c
 descriptive_statistics.generate_quantiles_report(statistics_data, "quantiles_01.csv", 0.1)
 descriptive_statistics.generate_quantiles_report(statistics_data, "quantiles_09.csv", 0.9)
 print('Generated statistics reports.')
+
+descriptive_statistics.get_outliers_report(statistics_data, "outliers.csv")
+descriptive_statistics.get_outliers_counters_report(statistics_data, "outliers_counters.csv")
+descriptive_statistics.get_pearson_attributes_correlation_report(statistics_data, "pearson_attributes_correlation.csv")
+descriptive_statistics.get_pearson_class_correlation_report(statistics_data, "pearson_class_correlation.csv", class_column)

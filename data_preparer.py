@@ -12,6 +12,7 @@ def get_data_without_symbols(data):
 
 
 def get_class_column(data):
+    data = get_data_without_symbols(data)
     return data.diagnosis
 
 

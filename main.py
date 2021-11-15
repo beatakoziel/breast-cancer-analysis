@@ -1,15 +1,17 @@
+import matplotlib
+
 import descriptive_statistics
 
 import pandas as pd
 
 import data_preparer
+import visualizator
 
 file_name = "wdbc.csv"
-
+matplotlib.rcParams.update({'font.size': 6})
 raw_data = pd.read_csv(file_name)
 class_column = data_preparer.get_class_column(raw_data)
 statistics_data = data_preparer.get_data_for_statistics(raw_data)
-statistics_data.to_csv("statistics_data.csv", index=False)
 print('Prepared data.')
 
 descriptive_statistics.generate_ranges_report(statistics_data, "ranges.csv")
@@ -25,3 +27,12 @@ descriptive_statistics.get_outliers_report(statistics_data, "outliers.csv")
 descriptive_statistics.get_outliers_counters_report(statistics_data, "outliers_counters.csv")
 descriptive_statistics.get_pearson_attributes_correlation_report(statistics_data, "pearson_attributes_correlation.csv")
 descriptive_statistics.get_pearson_class_correlation_report(statistics_data, "pearson_class_correlation.csv", class_column)
+descriptive_statistics.get_linear_regression_report(statistics_data, "radius_mean", "symmetry_mean", "radius_symmetry_mean_regression.csv")
+descriptive_statistics.get_linear_regression_report(statistics_data, "texture_mean", "smoothness_mean", "texture_smoothness_mean_regression.csv")
+
+visualisation_data = data_preparer.get_data_for_visualisation(raw_data)
+visualizator.create_attributes_values_diagram(visualisation_data)
+visualizator.create_histograms(visualisation_data)
+visualizator.create_linear_regression_diagram(visualisation_data, "radius_mean", "symmetry_mean")
+visualizator.create_linear_regression_diagram(visualisation_data, "texture_mean", "smoothness_mean")
+visualizator.create_box_diagrams(visualisation_data)

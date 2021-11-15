@@ -1,5 +1,6 @@
 import csv
-
+from sklearn.linear_model import LinearRegression
+from matplotlib import pyplot
 import numpy
 
 
@@ -99,3 +100,17 @@ def get_pearson_class_correlation_report(data, file_name, class_column):
         writer.writerow(["column_name", "pearson_correlation"])
         for col in data.columns:
             writer.writerow([col, numpy.corrcoef(class_column.astype(float), data[col].astype(float))[0][1]])
+
+
+def get_linear_regression_report(data, column_name_1, column_name_2, file_name):
+    x = data[column_name_1].values.reshape(-1, 1)
+    y = data[column_name_2].values.reshape(-1, 1)
+
+    linear_regressor = LinearRegression()
+    linear_regressor.fit(x, y)
+    predictions = linear_regressor.predict(x).flatten()
+    with open(file_name, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow([column_name_1, column_name_2, "predicted"])
+        for index, row in data.iterrows():
+            writer.writerow([data[column_name_1][index], data[column_name_2][index], predictions[index]])

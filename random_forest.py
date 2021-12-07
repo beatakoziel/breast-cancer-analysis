@@ -1,9 +1,13 @@
+import pydot as pydot
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.tree import export_graphviz
+import os
+from subprocess import check_call
 
 
 def classify(data):
@@ -25,6 +29,9 @@ def classify(data):
     feature_imp = pd.Series(clasifier.feature_importances_, index=list(x.columns)).sort_values(ascending=False)
     print(feature_imp)
     generate_feature_importance_report(feature_imp)
+    for i in range(0, len(clasifier.estimators_)):
+        export_graphviz(clasifier.estimators_[i], out_file=f"tree-{i}.dot", feature_names=x.columns, class_names="diagnosis", rounded=True, proportion=False, precision=2, filled=True)
+        check_call(['dot','-Tpng',f"tree-{i}.dot",'-o',f"tree-{i}.png"])
 
 
 

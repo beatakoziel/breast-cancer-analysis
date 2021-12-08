@@ -40,3 +40,4 @@ class_column = data_preparer.get_class_column(raw_data)
 
 classification_data = data_preparer.get_data_with_filled_gaps(raw_data)
 random_forest.classify(classification_data)
+# random_forest.classify_kfold(classification_data, 50)
